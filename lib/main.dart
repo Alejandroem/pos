@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pos/bloc/products/product_event.dart';
 import 'package:pos/data/repositories/devo_products_repository.dart';
 import 'package:pos/pages/home_page.dart';
 
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<ProductBloc>(
             create: (BuildContext context) => ProductBloc(
               productRepository: context.read(),
-            ),
+            )..add(ProductsFetched()),
           ),
         ],
         child: MaterialApp(

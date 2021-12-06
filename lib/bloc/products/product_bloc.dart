@@ -15,19 +15,30 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   Future<void> _onProductsFetched(
       ProductsFetched event, Emitter<ProductState> emit) async {
     if (state.hasReachedMax) return;
-    List<Product> products;
+
     try {
-      products = await productRepository.getProducts();
+      List<Product> products = await productRepository.getProducts();
+      if (state.status == ProductStatus.initial) {
+        return emit(state.copyWith(
+          status: ProductStatus.success,
+          products: products,
+          hasReachedMax: false,
+        ));
+      }
+
+      products = await productRepository.getProducts(
+          limit: 10, offset: state.products.length);
+      products.isEmpty
+          ? emit(state.copyWith(hasReachedMax: true))
+          : emit(
+              state.copyWith(
+                status: ProductStatus.success,
+                products: List.of(state.products)..addAll(products),
+                hasReachedMax: false,
+              ),
+            );
     } catch (e) {
       return emit(state.copyWith(status: ProductStatus.failure));
-    }
-
-    if (state.status == ProductStatus.initial) {
-      return emit(state.copyWith(
-        status: ProductStatus.success,
-        products: products,
-        hasReachedMax: false,
-      ));
     }
   }
 }
