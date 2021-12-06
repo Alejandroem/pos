@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pos/data/repositories/devo_products_repository.dart';
 import 'package:pos/pages/home_page.dart';
+
+import 'bloc/products/product_bloc.dart';
+import 'domain/repositories/products_repository.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,11 +43,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: getThemeData,
-      home: MaterialApp(
-        theme: getThemeData,
-        home: const HomePage(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<ProductsRepository>(
+          create: (context) => DevoProductsRepository(),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<ProductBloc>(
+            create: (BuildContext context) => ProductBloc(
+              productRepository: context.read(),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          theme: getThemeData,
+          home: MaterialApp(
+            theme: getThemeData,
+            home: const HomePage(),
+          ),
+        ),
       ),
     );
   }
