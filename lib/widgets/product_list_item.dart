@@ -8,9 +8,32 @@ class ProductListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Text(
-        product.name,
-        style: const TextStyle(fontSize: 20, color: Colors.black),
+      child: Column(
+        children: [
+          Image(
+            image: NetworkImage(
+              product.thumbnail,
+            ),
+            width: 100,
+          ),
+          Text(product.name,
+              style: const TextStyle(
+                color: Colors.black,
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('${product.quantityUnits} ${product.quantityMeasure}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                  )),
+              Text('${product.price}',
+                  style: const TextStyle(
+                    color: Colors.black,
+                  )),
+            ],
+          )
+        ],
       ),
     );
   }

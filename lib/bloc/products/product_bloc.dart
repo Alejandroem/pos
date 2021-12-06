@@ -38,6 +38,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               ),
             );
     } catch (e) {
+      print(e);
       return emit(state.copyWith(status: ProductStatus.failure));
     }
   }
