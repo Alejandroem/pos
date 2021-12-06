@@ -8,32 +8,35 @@ class ProductListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        children: [
-          Image(
-            image: NetworkImage(
-              product.thumbnail,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Image(
+              image: NetworkImage(
+                product.thumbnail,
+              ),
+              width: 100,
             ),
-            width: 100,
-          ),
-          Text(product.name,
-              style: const TextStyle(
-                color: Colors.black,
-              )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('${product.quantityUnits} ${product.quantityMeasure}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                  )),
-              Text('${product.price}',
-                  style: const TextStyle(
-                    color: Colors.black,
-                  )),
-            ],
-          )
-        ],
+            Text(product.name,
+                style: const TextStyle(
+                  color: Colors.black,
+                )),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('${product.quantityUnits} ${product.quantityMeasure}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                    )),
+                Text('${product.price}',
+                    style: const TextStyle(
+                      color: Colors.black,
+                    )),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

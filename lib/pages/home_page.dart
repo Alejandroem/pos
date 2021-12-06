@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 }
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 400,
+                    maxCrossAxisExtent: 300,
                     childAspectRatio: 3 / 2,
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
